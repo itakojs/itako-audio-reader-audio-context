@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>webpack-dev-server</title>
+
+  <style>html,body{margin:0}</style>
+  <script src="https://npmcdn.com/itako"></script>
+  <script src="itako-audio-reader-audio-context.min.js"></script>
+  <script>
+  var reader = new ItakoAudioReaderAudioContext('audio');
+  var itako = new Itako([reader], [{
+    transform: function(tokens){
+      return tokens.map(function(token){
+        return token.setType('audio')
+      })
+    }
+  }]);
+  itako.read('http://static.edgy.black/fixture.wav', {volume: .2, pitch: .75});
+  </script>
+</head>
+<body>
+  <div id="main"></div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+notifications:
+  email: false
+
+# Quick boot options
+sudo: false
+cache:
+  directories:
+    - node_modules
+
+# Ignore version tags
+branches:
+  except:
+    - /^v[0-9]/
+
+env:
+  global:
+    # CODECLIMATE_REPO_TOKEN
+    - secure: Gj1MyWdV2fP+JpjBCONy0SX1Mf59tnlcTHdKqWsF6CqvnXsvKmxS8L1mWzI1bzsuqYv62U+Nwt5Eq7mNnajRNZu0fcxNHjnA+qUkUT1qLo9bRVjmrrxoDqFxlU01g/CuytXBdh9xqReJsp4EnKp/6vcn7lKv1ta1cZtuhU080cgpS109M9nBN8qUVfu3bn6EnXvo89m3/zpQWwi4Zpen0K3MOSHxoZBQvWLjM8OyDwL/DBxAGlZWJ9mJP0WT5LvtR+rJpmozeWyQHTFh3/rtRDBFKNz38M2m27NpgdLQFasTt244caq2gTgug/2/cpDRoSmqX7lfqfxPROWy7Ai19dz5Lz1kACXPFnok+3IPuq/AIvM9EukPLcx4v422ug5blkYE/j/I8zb6orm9odIwrNzd+M1nZdngQEqfk3LCfCpd2/M6y9PMjw+5SXD5IgM+Ar0hQp9grRUitaTsPsWsWYXE6clmof4WzY2IvuDypncCl+AJemxrdCvCkRtWgIai5EqHCD4MSGlSrIMgYEfePJSbfO4uIunSzPjX+PJioNXY+rAJegiDVOZYWiOOYcbLo/FVwpqKCbg84q6hK6yI1yWW9BDKur+HE/piVWtPy21AZTvr+S9BLDo4KouTXb18a6y5jO7wwIKU0gcSZ8kwAZpg8Z72i3MEnexKAoopmbY=
+
+# Language options
+language: node_js
+before_install:
+  - if [[ `npm -v` != 3* ]]; then npm i -g npm@3; fi
+node_js:
+  - "0"
+  - 4
+  - 5
+before_script:
+  - npm prune
+script:
+  - npm run cover
+  - npm run lint
+
+# Npm publish options
+before_deploy:
+  - npm run build
+deploy:
+  skip_cleanup: true # keep the devDependencies
+  provider: npm
+  email: i59naga@icloud.com
+  api_key:
+    secure: tx7JfGtkxkK0VWBC53nsZ838CjuEH3EFR8vcmbN0f6aF5jUC7NaQ4ODJESWmKJjW0k9AHQbXMMLDmM4OEtxMVOc3DMdI4HiwK/oj/UG2wQ4i1lrWMF/jW/GmTO6XKPJDxzvUPulI9SeTr6uKM76X4xADQjflRhesOXf1zK6jZ5cy6R2a00CyYpYvBahFb18pko/W6EUKTsikxruV9AsRm0dWHW1lRcb0S/WhW2OxYTxHu11wM7pLsDw8yEQO9IR27LWC0BlRBWkjB59jyUqzuhHDaF3sbc5hBf0i3cksurttUvYsSjUAPQIlVVEQr09hr/A29RWyvJ7x4i+QiK/xtOjra2+oewt7FPpRqRFm899ggVXGFptZFYTwJHwhXw8swrKiHWJDon4oxDGu1C//payL5ZRaFI8BmbNL0rD92XGtuotyeF3nio398e8hdBARVv1yHELMqJN8vkjHcZSymRGapabfp/nzxcwcu1Uqe2KXZYOeDIzVYLRkJmmpiTGA77foHjJsrp2wo8ngGzQTFmN+qg9wD5EnSvheQPaoxqbyDO0dgt3b6hI8yvtkY1xk7rslBdLhifTHetb6mSi6um7TWVkrUoC0iYcMdKjlqVDIgwQkGUPbsiLwsf2SqxnL3IBMkXYHB/o3W03yfQOG1xkk6za/HMAnazmzs6HjtGk=
+  on:
+    node: 4
