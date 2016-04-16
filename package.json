@@ -1,7 +1,7 @@
 {
   "name": "itako-audio-reader-audio-context",
   "description": "itako-v0 AudioContext audio-player plugin",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "release/itako-audio-reader-audio-context.min.js",
   "files": [
     "release"
