@@ -5,6 +5,9 @@ Itako Audio Reader Audio Context
   <a href="https://npmjs.org/package/itako-audio-reader-audio-context">
     <img src="https://img.shields.io/npm/v/itako-audio-reader-audio-context.svg?style=flat-square">
   </a>
+  <a href="https://travis-ci.org/itakojs/itako-audio-reader-audio-context">
+    <img src="http://img.shields.io/travis/itakojs/itako-audio-reader-audio-context.svg?style=flat-square">
+  </a>
   <a href="https://ci.appveyor.com/project/59naga/itako-audio-reader-audio-context">
     <img src="https://img.shields.io/appveyor/ci/59naga/itako-audio-reader-audio-context.svg?style=flat-square">
   </a>
