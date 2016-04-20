@@ -1,5 +1,6 @@
+// dependencies
 import Promise from 'bluebird';
-import qwest from 'qwest';
+import axios from 'axios';
 
 // @class ItakoAudioReaderAudioContext
 export default class ItakoAudioReaderAudioContext {
@@ -51,13 +52,11 @@ export default class ItakoAudioReaderAudioContext {
       return token;
     }
 
-    return qwest.get(token.value, {}, {
-      responseType: 'arraybuffer',
+    const options = typeof token.value === 'string' ? { url: token.value } : { ...token.value };
+    options.responseType = 'arraybuffer';
 
-      // https://github.com/pyrsmk/qwest/issues/99#issuecomment-170618841
-      cache: true,
-    })
-    .then((xhr) => this.play(xhr.response, token.options))
+    return axios(options)
+    .then((response) => this.play(response.data, token.options))
     .then((nodes) => token.setMeta('nodes', nodes));
   }
 
