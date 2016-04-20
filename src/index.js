@@ -72,7 +72,15 @@ export default class ItakoAudioReaderAudioContext {
     })
     .then((decodedAudioData) => new Promise((resolve) => {
       const gainNode = this.audioContext.createGain();
-      gainNode.gain.value = options.volume || 1;
+
+      // @see http://www.html5rocks.com/en/tutorials/webaudio/intro/
+      const currentTime = this.audioContext.currentTime;
+      const duration = decodedAudioData.duration;
+      const fadeTime = duration > 1 ? 0.25 : duration / 5;
+      const volume = options.volume || 1;
+      gainNode.gain.linearRampToValueAtTime(volume, currentTime);
+      gainNode.gain.linearRampToValueAtTime(volume, currentTime + duration - fadeTime);
+      gainNode.gain.linearRampToValueAtTime(0, currentTime + duration);
       gainNode.connect(this.audioContext.destination);
 
       const sourceNode = this.audioContext.createBufferSource();

@@ -55,7 +55,7 @@ describe('itako-audio-reader-audio-context', () => {
     const text = '/base/test/fixtures/beep.wav';
     const tokens = await itako.read(text, { volume: 0.2, pitch: 0.5 });
     assert(tokens[0].meta.reader.name === 'audio-context');
-    assert(Math.floor(tokens[0].meta.nodes.gainNode.gain.value * 10) / 10 === 0.2);
+    assert(tokens[0].meta.nodes.gainNode.gain instanceof AudioParam);
     assert(tokens[0].meta.nodes.sourceNode.playbackRate.value === 0.5);
     assert(tokens[0].value === text);
   });
