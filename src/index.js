@@ -76,7 +76,7 @@ export default class ItakoAudioReaderAudioContext {
       // @see http://www.html5rocks.com/en/tutorials/webaudio/intro/
       const currentTime = this.audioContext.currentTime;
       const duration = decodedAudioData.duration;
-      const fadeTime = duration > 1 ? 0.25 : duration / 5;
+      const fadeTime = duration > 1 ? 0.1 : duration / 10;
       const volume = options.volume || 1;
       gainNode.gain.linearRampToValueAtTime(volume, currentTime);
       gainNode.gain.linearRampToValueAtTime(volume, currentTime + duration - fadeTime);
