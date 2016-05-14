@@ -17,7 +17,7 @@ const init = {
   frameworks: ['mocha'],
   client: {
     mocha: {
-      timeout: 5000,
+      timeout: 10000,
     },
   },
   files: [
