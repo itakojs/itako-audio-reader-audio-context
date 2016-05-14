@@ -43,6 +43,24 @@ export default class ItakoAudioReaderAudioContext {
   }
 
   /**
+  * @method preload
+  * @param {token} token - a itako-token instance
+  * @returns {boolean} - returns true if preloaded
+  */
+  preload(token) {
+    if (token.type !== this.readType) {
+      return false;
+    }
+
+    token.setMeta('preloadStart', Date.now());
+    token.setMeta('preload', this.createRequest(token));
+    token.meta.preload.then(() => {
+      token.setMeta('preloadEnd', Date.now());
+    });
+    return true;
+  }
+
+  /**
   * @method read
   * @param {token} token - a itako-token instance
   * @returns {promise|token} - returns the promise only when reading
@@ -52,12 +70,22 @@ export default class ItakoAudioReaderAudioContext {
       return token;
     }
 
+    const request = token.meta.preload || this.createRequest(token);
+    return request
+    .then((response) => this.play(response.data, token.options))
+    .then((nodes) => token.setMeta('nodes', nodes));
+  }
+
+  /**
+  * @method createRequest
+  * @param {token} token - a itako-token instance
+  * @returns {promise} - the executing request
+  */
+  createRequest(token) {
     const options = typeof token.value === 'string' ? { url: token.value } : { ...token.value };
     options.responseType = 'arraybuffer';
 
-    return axios(options)
-    .then((response) => this.play(response.data, token.options))
-    .then((nodes) => token.setMeta('nodes', nodes));
+    return axios(options);
   }
 
   /**

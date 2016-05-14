@@ -59,4 +59,25 @@ describe('itako-audio-reader-audio-context', () => {
     assert(tokens[0].meta.nodes.sourceNode.playbackRate.value === 0.5);
     assert(tokens[0].value === text);
   });
+
+  it('should preload the audio token', async () => {
+    const reader = new ItakoAudioReaderAudioContext();
+    const itako = new Itako([reader], [audioTransformer]).setOptions({
+      read: {
+        preload: true,
+      },
+    });
+
+    simulateAfterRead('00:10.000', reader.audioContext);
+
+    // request the audio files in before read
+    const [a, b, c] = await itako.read([
+      Itako.createToken('audio', 'http://voicetext.berabou.me/a?format=ogg'),
+      Itako.createToken('audio', 'http://voicetext.berabou.me/b?format=ogg'),
+      Itako.createToken('audio', 'http://voicetext.berabou.me/c?format=ogg'),
+    ]);
+    assert(a.meta.reader.name === 'audio-context');
+    assert(b.meta.preloadStart - a.meta.preloadStart < 100);
+    assert(c.meta.preloadStart - b.meta.preloadStart < 100);
+  });
 });

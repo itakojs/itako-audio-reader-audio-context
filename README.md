@@ -59,6 +59,10 @@ itako.read('http://static.edgy.black/fixture.wav');
 </script>
 ```
 
+Recommended file format
+---
+* `ogg`, `.mp3` (audioContext is unstable in `.wav`, `.m4a`)
+
 See also
 ---
 - [itako - a pluggable text reader](https://github.com/itakojs/itako)
