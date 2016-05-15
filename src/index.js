@@ -106,9 +106,10 @@ export default class ItakoAudioReaderAudioContext {
       const duration = decodedAudioData.duration;
       const fadeTime = duration > 1 ? 0.1 : duration / 10;
       const volume = options.volume || 1;
-      gainNode.gain.linearRampToValueAtTime(volume, currentTime);
-      gainNode.gain.linearRampToValueAtTime(volume, currentTime + duration - fadeTime);
-      gainNode.gain.linearRampToValueAtTime(0, currentTime + duration);
+      gainNode.gain.value = volume;
+      // gainNode.gain.linearRampToValueAtTime(volume, currentTime);
+      // gainNode.gain.linearRampToValueAtTime(volume, currentTime + duration - fadeTime);
+      // gainNode.gain.linearRampToValueAtTime(0, currentTime + duration);
       gainNode.connect(this.audioContext.destination);
 
       const sourceNode = this.audioContext.createBufferSource();
