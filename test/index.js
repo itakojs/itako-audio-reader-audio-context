@@ -26,7 +26,7 @@ const audioTransformer = {
 
 // specs
 describe('itako-audio-reader-audio-context', () => {
-  it('should ignore the non-audio token', async() => {
+  it('should ignore the non-audio token', async () => {
     const reader = new ItakoAudioReaderAudioContext();
     const itako = new Itako([reader]);
     const reason = await rejects(itako.read('foo'));
@@ -46,7 +46,7 @@ describe('itako-audio-reader-audio-context', () => {
     assert(tokens[0].value === text);
   });
 
-  it('if specify volume/pitch option, it should be change the volume and pitch', async() => {
+  it('if specify volume/pitch option, it should be change the volume and pitch', async () => {
     const reader = new ItakoAudioReaderAudioContext();
     const itako = new Itako([reader], [audioTransformer]);
 
